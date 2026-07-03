@@ -1,0 +1,45 @@
+module who_won
+(
+
+	input[3:0] char_state,
+	input[3:0] char2_state,
+	input[1:0] char_hp,
+	input[1:0] char2_hp,
+	
+	output reg[1:0] winner
+
+);
+
+localparam S_startup = 0;
+localparam S_countdown = 11;
+localparam S_gameover = 10;
+localparam S_idle = 1;
+localparam S_right = 2;
+localparam S_left = 3;
+localparam S_attack_start = 4;
+localparam S_attack_active = 5;
+localparam S_attack_recovery = 6;
+localparam S_dir_attack_start = 7;
+localparam S_dir_attack_active  = 8;
+localparam S_dir_attack_recovery  = 9;
+localparam S_hitstun = 12;
+localparam S_blockstun = 13;
+
+always@(*)
+begin
+	case(char_state)
+	
+	S_gameover:
+	begin
+		if(char_hp == 2'b11 && char2_hp == 2'b11) winner <= 2'b00;
+		else if(char_hp == 2'b11) winner <= 2'b01;
+		else if(char2_hp == 2'b11) winner <= 2'b10;
+		else winner <= 2'b00;
+	end
+	
+	default: winner <= 2'b00;
+	
+	endcase
+end
+
+endmodule

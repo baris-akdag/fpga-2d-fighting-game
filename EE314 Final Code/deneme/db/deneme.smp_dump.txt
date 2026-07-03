@@ -1,0 +1,44 @@
+
+State Machine - |deneme|vga_driver:draw|v_state
+Name v_state.V_BACK_STATE v_state.V_PULSE_STATE v_state.V_FRONT_STATE v_state.V_ACTIVE_STATE 
+v_state.V_ACTIVE_STATE 0 0 0 0 
+v_state.V_FRONT_STATE 0 0 1 1 
+v_state.V_PULSE_STATE 0 1 0 1 
+v_state.V_BACK_STATE 1 0 0 1 
+
+State Machine - |deneme|vga_driver:draw|h_state
+Name h_state.H_BACK_STATE h_state.H_PULSE_STATE h_state.H_FRONT_STATE h_state.H_ACTIVE_STATE 
+h_state.H_ACTIVE_STATE 0 0 0 0 
+h_state.H_FRONT_STATE 0 0 1 1 
+h_state.H_PULSE_STATE 0 1 0 1 
+h_state.H_BACK_STATE 1 0 0 1 
+
+State Machine - |deneme|game_fsm:game|state2
+Name state2.S_gameover state2.0000 state2.S_dir_attack_recovery state2.S_dir_attack_active state2.S_dir_attack_start state2.S_attack_recovery state2.S_attack_active state2.S_attack_start state2.S_left state2.S_right state2.S_idle state2.S_startup 
+state2.S_startup 0 0 0 0 0 0 0 0 0 0 0 0 
+state2.S_idle 0 0 0 0 0 0 0 0 0 0 1 1 
+state2.S_right 0 0 0 0 0 0 0 0 0 1 0 1 
+state2.S_left 0 0 0 0 0 0 0 0 1 0 0 1 
+state2.S_attack_start 0 0 0 0 0 0 0 1 0 0 0 1 
+state2.S_attack_active 0 0 0 0 0 0 1 0 0 0 0 1 
+state2.S_attack_recovery 0 0 0 0 0 1 0 0 0 0 0 1 
+state2.S_dir_attack_start 0 0 0 0 1 0 0 0 0 0 0 1 
+state2.S_dir_attack_active 0 0 0 1 0 0 0 0 0 0 0 1 
+state2.S_dir_attack_recovery 0 0 1 0 0 0 0 0 0 0 0 1 
+state2.0000 0 1 0 0 0 0 0 0 0 0 0 1 
+state2.S_gameover 1 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |deneme|game_fsm:game|state
+Name state.S_gameover state.0000 state.S_dir_attack_recovery state.S_dir_attack_active state.S_dir_attack_start state.S_attack_recovery state.S_attack_active state.S_attack_start state.S_left state.S_right state.S_idle state.S_startup 
+state.S_startup 0 0 0 0 0 0 0 0 0 0 0 0 
+state.S_idle 0 0 0 0 0 0 0 0 0 0 1 1 
+state.S_right 0 0 0 0 0 0 0 0 0 1 0 1 
+state.S_left 0 0 0 0 0 0 0 0 1 0 0 1 
+state.S_attack_start 0 0 0 0 0 0 0 1 0 0 0 1 
+state.S_attack_active 0 0 0 0 0 0 1 0 0 0 0 1 
+state.S_attack_recovery 0 0 0 0 0 1 0 0 0 0 0 1 
+state.S_dir_attack_start 0 0 0 0 1 0 0 0 0 0 0 1 
+state.S_dir_attack_active 0 0 0 1 0 0 0 0 0 0 0 1 
+state.S_dir_attack_recovery 0 0 1 0 0 0 0 0 0 0 0 1 
+state.0000 0 1 0 0 0 0 0 0 0 0 0 1 
+state.S_gameover 1 0 0 0 0 0 0 0 0 0 0 1 

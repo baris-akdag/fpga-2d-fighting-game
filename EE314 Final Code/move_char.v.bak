@@ -1,0 +1,31 @@
+module move_char //testing purposes just moves character
+(
+	input clk,
+	input right,
+	input left,
+	output reg[9:0] char_x
+);
+
+reg initialize = 1'b0;
+
+always@(posedge clk)
+begin
+	if (initialize == 0)
+	begin
+		char_x <= 10'd100;
+		initialize <= 1'b1;
+	end
+	
+	else
+	begin
+		if (right == 1 && left != 1)
+			char_x <= char_x + 3;
+		else if (right != 1 && left == 1)
+			char_x <= char_x - 3;
+		else
+			char_x <= char_x;
+	end
+	
+end
+
+endmodule

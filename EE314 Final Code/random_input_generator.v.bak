@@ -1,0 +1,21 @@
+module random_input_generator
+(
+	input sw,
+	clk,
+	output right,
+	output left,
+	output attack
+);
+
+clock_divider oneHz2
+(
+.clk(clk),
+.division_factor(13),
+.modded_clk(rand_clk)
+);
+
+always @(posedge rand_clk)
+begin
+
+end
+endmodule

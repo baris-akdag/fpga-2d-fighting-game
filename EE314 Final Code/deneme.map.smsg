@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at render_cd.v(25): always construct contains both blocking and non-blocking assignments File: C:/Users/akdag/Desktop/EE314 Final/deneme/render_cd.v Line: 25
+Warning (10268): Verilog HDL information at seven_segment_controller.v(98): always construct contains both blocking and non-blocking assignments File: C:/Users/akdag/Desktop/EE314 Final/deneme/seven_segment_controller.v Line: 98

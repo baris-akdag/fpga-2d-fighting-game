@@ -1,0 +1,37 @@
+module LFSR #(parameter seed = 16'hACE1)
+(
+   input clk,
+   output [15:0] state
+);
+
+reg feedback;
+reg[1:0] control;
+reg loaded = 0;
+
+shifter #(.W(16)) ye_shifter
+(
+    .clk(clk),     
+    .control(control),     
+    .padding(feedback),    
+    .load_input(seed),     
+    .shifted(state)        
+);
+
+always @(posedge clk) 
+begin
+
+	if (loaded == 0)
+	begin
+		 control <= 2'b10;
+		 loaded  <= 1; 
+	end
+	
+	else
+	begin
+		control <= 2'b00;
+		feedback <= state[0] ^ state[2] ^ state[3] ^ state[5];
+	end
+	
+end
+
+endmodule

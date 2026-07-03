@@ -1,0 +1,135 @@
+module render_cd(
+	input clk,
+	input[9:0] next_x,
+	input[9:0] next_y,
+	input[1:0] count,
+	input[3:0] char_state,
+	output reg count_pixel
+);
+
+localparam S_startup = 0;
+localparam S_countdown = 11;
+localparam S_gameover = 10;
+localparam S_idle = 1;
+localparam S_right = 2;
+localparam S_left = 3;
+localparam S_attack_start = 4;
+localparam S_attack_active = 5;
+localparam S_attack_recovery = 6;
+localparam S_dir_attack_start = 7;
+localparam S_dir_attack_active  = 8;
+localparam S_dir_attack_recovery  = 9;
+localparam S_hitstun = 12;
+localparam S_blockstun = 13;
+
+always @(posedge clk) 
+begin
+	count_pixel = 1'b0;
+	
+	if (char_state == S_countdown)
+	begin
+		case (count)
+			2'd3: begin
+				if (next_y > 200 && next_y <= 211) begin // straight line of "s"
+					if ((next_x > 285 && next_x <= 287)) 
+					count_pixel <= 1'b1;
+				end
+				if (next_y > 209 && next_y <= 220) begin // straight line of "s"
+					if ((next_x > 293 && next_x <= 295)) 
+					count_pixel <= 1'b1;
+				end
+				if (next_x > 285 && next_x <= 295) begin // horizontal lines of "s"
+					if ((next_y > 200 && next_y <= 202) || (next_y > 209 && next_y <= 211) || (next_y > 218 && next_y <= 220)) 
+					count_pixel <= 1'b1;
+				end
+
+					// letter "t"
+				if (next_y > 200 && next_y <= 202) begin // horizontal line of "t"
+					if ((next_x > 300 && next_x <= 310))
+					count_pixel <= 1'b1;
+				end
+				if (next_y > 200 && next_y <= 220) begin // straight line of "t"
+					if ((next_x > 304 && next_x <= 306)) 
+					count_pixel <= 1'b1;
+				end
+				
+					// letter "a"
+				if (next_y > 200 && next_y <= 220) begin // straight line of "a"
+					if ((next_x > 315 && next_x <= 317)) 
+					count_pixel <= 1'b1;
+				end
+				if (next_y > 200 && next_y <= 220) begin // straight line of "a"
+					if ((next_x > 323 && next_x <= 325)) 
+					count_pixel <= 1'b1;
+				end
+				if (next_x > 315 && next_x <= 325) begin // horizontal lines of "a"
+					if ((next_y > 200 && next_y <= 202) || (next_y > 208 && next_y <= 210))
+					count_pixel <= 1'b1;
+				end
+			
+					// letter "r"
+				if (next_y > 200 && next_y <= 202) begin // horizontal line of "r"
+					if ((next_x > 330 && next_x <= 340))
+					count_pixel <= 1'b1;
+				end
+				if (next_y > 200 && next_y <= 220) begin // straight line of "r"
+					if ((next_x > 330 && next_x <= 332)) 
+					count_pixel <= 1'b1;
+				end
+				if (next_y > 200 && next_y <= 210) begin // straight line of "r"
+					if ((next_x > 338 && next_x <= 340)) 
+					count_pixel <= 1'b1;
+				end
+			
+					// letter "t"
+				if (next_y > 200 && next_y <= 202) begin // horizontal line of "t"
+					if ((next_x > 345 && next_x <= 355))
+					count_pixel <= 1'b1;
+				end
+				if (next_y > 200 && next_y <= 220) begin // straight line of "t"
+					if ((next_x > 349 && next_x <= 351)) 
+					count_pixel <= 1'b1;
+				end
+			end
+			
+			2'd0:	begin
+				if (next_x > 317 && next_x <= 322) begin
+					if ((next_y > 200 && next_y <= 202) || (next_y > 204 && next_y <= 206) || (next_y > 208 && next_y <= 210))
+					count_pixel <= 1'b1;
+				end
+				if (next_y > 200 && next_y <= 210) begin
+					if ((next_x > 320 && next_x <= 322)) 
+					count_pixel <= 1'b1;
+				end
+			end
+
+			
+			
+			2'd1: begin 
+				if (next_x > 317 && next_x <= 322) begin
+					if ((next_y > 200 && next_y <= 202) || (next_y > 204 && next_y <= 206) || (next_y > 208 && next_y <= 210))
+					count_pixel <= 1'b1;
+				end
+				if (next_y > 200 && next_y <= 206) begin 
+					if ((next_x > 320 && next_x <= 322))
+					count_pixel <= 1'b1;
+				end
+				if (next_y > 204 && next_y <= 210) begin 
+					if ((next_x > 317 && next_x <= 319))
+					count_pixel <= 1'b1;
+				end
+			end
+			
+			2'd2: begin
+				if (next_x > 320 && next_x <= 322) begin
+					if ((next_y > 200 && next_y <= 210)) 
+					count_pixel <= 1'b1;
+				end
+			end
+		endcase
+		
+	end//if end
+	
+end//always end
+
+endmodule

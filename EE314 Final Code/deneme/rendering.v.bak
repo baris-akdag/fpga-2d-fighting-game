@@ -1,0 +1,34 @@
+module rendering
+(
+	input clk,
+	
+	input char_hurtbox,
+	input char2_hurtbox,
+	
+	input char_hitbox,
+	input char2_hitbox,
+	
+	input background,
+	
+	output reg [7:0] pixel_color
+);
+
+
+
+always @(posedge clk) 
+begin
+	if (background) pixel_color <= 8'b_100_011_00;
+	
+	else if(char_hitbox) pixel_color <= 8'b_011_000_00;
+	
+	else if(char2_hitbox) pixel_color <= 8'b_011_000_00;
+	
+	else if(char_hurtbox) pixel_color <= 8'b_111_100_00;
+	
+	else if(char2_hurtbox) pixel_color <= 8'b_111_100_00;
+	
+	else pixel_color <= 8'b_100_100_10 ;
+end
+
+
+endmodule

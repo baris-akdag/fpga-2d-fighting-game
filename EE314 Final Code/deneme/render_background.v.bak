@@ -1,0 +1,20 @@
+module render_background 
+(
+	input clk,
+	input[9:0] next_x,
+	input[9:0] next_y,
+	output reg [7:0] background_pixel_color
+);
+
+always @(posedge clk) //simple background of just a floor
+begin
+	if (next_y > 440 && next_y <= 470)
+	begin
+		background_pixel_color <= 8'b_000_000_00;
+	end
+	
+	else background_pixel_color <= 8'b_111_111_11;
+	
+end
+
+endmodule

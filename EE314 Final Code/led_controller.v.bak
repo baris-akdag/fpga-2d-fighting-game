@@ -1,0 +1,49 @@
+module led_controller
+(
+	input clk,
+	input[3:0] char_state,
+	input[3:0] char2_state,
+	input[1:0] char_hp,
+	input[1:0] char2_hp,
+	input[1:0] char_bp,
+	input[1:0] char2_bp,
+	output reg[9:0] led
+);
+
+reg initialize <= 1'b0 ;
+
+always@(posedge clk)
+begin
+	case(char_state)
+	
+		S_startup, S_countdown:
+		begin
+			led <= 10'b0000_0000_00;
+		end
+		
+		S_gameover:
+		begin
+			if (initialize == 0) led <= 10'b0000_0000_00;
+			else led <= ~led ;
+		end
+		
+		default:
+		begin
+			case(char_hp)
+				2'b00: led[2:0] <= 3'b111;
+				2'b01: led[2:0] <= 3'b011;
+				2'b10: led[2:0] <= 3'b001;
+				2'b11: led[2:0] <= 3'b000;
+			endcase
+
+			case(char2_hp)
+				2'b00: led[9:7] <= 3'b111;
+				2'b01: led[9:7] <= 3'b011;
+				2'b10: led[9:7] <= 3'b001;
+				2'b11: led[9:7] <= 3'b000;
+			endcase	
+		end
+	endcase
+end
+
+endmodule

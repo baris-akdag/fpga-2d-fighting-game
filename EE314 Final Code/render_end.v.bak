@@ -1,0 +1,152 @@
+module render_end(
+	input clk,
+	input[9:0] next_x,
+	input[9:0] next_y,
+	
+	input[3:0] char_state,
+	input[3:0] char2_state,
+	
+	output reg end_pixel	
+	);
+
+
+localparam S_startup = 0;
+localparam S_countdown = 11;
+localparam S_gameover = 10;
+localparam S_idle = 1;
+localparam S_right = 2;
+localparam S_left = 3;
+localparam S_attack_start = 4;
+localparam S_attack_active = 5;
+localparam S_attack_recovery = 6;
+localparam S_dir_attack_start = 7;
+localparam S_dir_attack_active  = 8;
+localparam S_dir_attack_recovery  = 9;
+localparam S_hitstun = 12;
+localparam S_blockstun = 13;
+
+always @(posedge clk) //background of end screen
+	
+begin  
+
+	end_pixel <= 1'b0;	
+	
+	if (char_state == S_gameover) 
+	begin
+		// letter "g"
+		if (next_y > 80 && next_y <= 110) begin // straight line of "g"
+			if ((next_x > 240 && next_x <= 242)) begin
+			end_pixel <= 1'b1;
+			end
+		if (next_x > 240 && next_x <= 260) begin // horizontal line of "g"
+			if ((next_y > 80 && next_y <= 82) || (next_y > 108 && next_y <= 110)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+		if (next_y > 95 && next_y <= 110) begin  // straight line of "g"
+			if ((next_x > 258 && next_x <= 260)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+		
+		// letter "a"
+		if (next_y > 80 && next_y <= 110) begin // straight lines of "a"
+			if ((next_x > 262 && next_x <= 264) || (next_x > 280 && next_x <= 282)) 
+			end_pixel <= 1'b1;
+			end
+		if (next_x > 262 && next_x <= 282) begin // horizontal lines of "a"
+			if ((next_y > 80 && next_y <= 82) || (next_y > 95 && next_y <= 97))
+			end_pixel <= 1'b1;
+		end
+		
+		// letter "m"
+		if (next_y > 80 && next_y <= 110) begin // straight lines of "m"
+			if ((next_x > 284 && next_x <= 286) || (next_x > 294 && next_x <= 296) || (next_x > 302 && next_x <= 304)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+		if (next_x > 284 && next_x <= 304) begin // horizontal line of "m"
+			if ((next_y > 80 && next_y <= 82)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+	
+		// letter "e"
+		if (next_y > 80 && next_y <= 110) begin // straight line of "e"
+			if ((next_x > 306 && next_x <= 308)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+		if (next_x > 306 && next_x <= 326) begin // horizontal lines of "e"
+			if ((next_y > 80 && next_y <= 82) || (next_y > 95 && next_y <= 97) || (next_y > 108 && next_y <= 110)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+		if (next_x > 273 && next_x <= 315) begin 
+			if (next_y > 132 && next_y <= 140)  begin
+			end_pixel <= 1'b1;
+			end
+		end
+		
+		// letter "o"
+		if (next_y > 80 && next_y <= 110) begin // straight lines of "o"
+			if ((next_x > 332 && next_x <= 334) || (next_x > 350 && next_x <= 352)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+		if (next_x > 332 && next_x <= 352) begin // horizontal lines of "o"
+			if ((next_y > 80 && next_y <= 82) || (next_y > 108  && next_y <= 110)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+		
+		// letter "v"
+		if (next_y > 80 && next_y <= 110) begin // straight lines of "v"
+			if ((next_x > 354 && next_x <= 356) || (next_x > 372  && next_x <= 374)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+		if (next_x > 354 && next_x <= 374) begin // horizontal lines of "o"
+			if ((next_y > 108 && next_y <= 110)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+		
+		// letter "e"
+		if (next_y > 80 && next_y <= 110) begin // straight line of "e"
+			if ((next_x > 376 && next_x <= 378)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+		if (next_x > 376 && next_x <= 396) begin // horizontal lines of "e"
+			if ((next_y > 80 && next_y <= 82) || (next_y > 95 && next_y <= 97) || (next_y > 108 && next_y <= 110)) begin
+			end_pixel <= 1'b1;
+			end
+		end
+		if (next_x > 273 && next_x <= 315) begin 
+			if (next_y > 132 && next_y <= 140)  begin
+			end_pixel <= 1'b1;
+			end
+		end
+		
+		// letter "r"
+		if (next_y > 80 && next_y <= 110) begin // straight line of "r"
+			if ((next_x > 398 && next_x <= 400))
+			end_pixel <= 1'b1;
+		end
+		if (next_x > 398 && next_x <= 418) begin // horizontal line of "r"
+			if ((next_y > 80 && next_y <= 82)) 
+			end_pixel <= 1'b1;
+		end
+		if (next_y > 80 && next_y <= 95) begin // straight line of "r"
+			if ((next_x > 416 && next_x <= 418)) 
+			end_pixel <= 1'b1;
+		end
+	end
+	end
+	
+end
+	
+endmodule
+	
+	

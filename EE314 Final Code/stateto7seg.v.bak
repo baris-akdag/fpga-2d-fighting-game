@@ -1,0 +1,22 @@
+module stateto7seg
+(
+ input[3:0] char_state,
+ input[3:0] char2_state,
+ output[6:0] hex0,
+ output[6:0] hex1,
+);
+
+hexto7seg hex
+(
+.hex(char_state),
+.hexn(hex0)
+);
+
+hexto7seg hex
+(
+.hex(char2_state),
+.hexn(hex1)
+);
+
+
+endmodule

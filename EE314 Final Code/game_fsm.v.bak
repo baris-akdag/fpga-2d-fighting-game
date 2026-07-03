@@ -1,0 +1,231 @@
+module game_fsm
+(
+	input clk,
+	input right,
+	input left,
+	input attack,
+	//input hit_detect,
+	output reg[9:0] char_x,
+	output reg[3:0] char_state
+);
+
+reg[3:0] state = 4'b0000;
+reg[1:0] counter_control = 2'b00;
+wire[7:0] count;
+
+localparam S_idle = 1;
+localparam S_right = 2;
+localparam S_left = 3;
+localparam S_attack_start = 4;
+localparam S_attack_active = 5;
+localparam S_attack_recovery = 6;
+localparam S_dir_attack_start = 7;
+localparam S_dir_attack_active  = 8;
+localparam S_dir_attack_recovery  = 9;
+
+localparam hold = 2'b00;
+localparam increment = 2'b01;
+localparam decrement = 2'b10;
+localparam reset = 2'b11;
+
+Counter #(.W(8)) frame_counter
+(
+.clk(clk),
+.control(counter_control),
+.count(count)
+);
+
+
+reg initialize = 1'b0;
+
+always@(posedge clk)
+begin
+
+	if (initialize == 0)
+	begin
+		char_x <= 10'd100;
+		state <= S_idle;
+		initialize <= 1'b1;
+	end
+	
+	else
+	begin
+		case(state)
+	
+			S_idle:
+			begin
+				char_x <= char_x;
+				char_state <= state;
+				if (right == 1 && left != 1) state <= S_right;
+				else if (right != 1 && left == 1) state <= S_left;
+				else if(attack == 1) state <= S_attack_start;
+				else state <= S_idle;
+			end
+			
+			S_right:
+			begin
+				char_x <= char_x + 2'b11;
+				char_state <= state;
+				if (right == 1 && left != 1) state <= S_right;
+				else if (right != 1 && left == 1) state <= S_left;
+				else if(attack == 1) state <= S_dir_attack_start;
+				else state <= S_idle;
+			end
+			
+			S_left:
+			begin
+				char_x <= char_x - 2'b11;
+				char_state <= state;
+				if (right == 1 && left != 1) state <= S_right;
+				else if (right != 1 && left == 1) state <= S_left;
+				else if(attack == 1) state <= S_dir_attack_start;
+				else state <= S_idle;
+			end
+			
+			S_attack_start:
+			begin
+				char_x <= char_x;
+				char_state <= state;
+				counter_control <= increment;
+				state <= S_attack_start;
+				if (count == 4)
+				begin
+					counter_control <= reset;
+					state<= S_attack_active;
+				end
+			end
+			
+			S_attack_active:
+			begin
+				char_x <= char_x;
+				char_state <= state;
+				counter_control <= increment;
+				state <= S_attack_active;
+				if (count == 1)
+				begin
+					counter_control <= reset;
+					state<= S_attack_recovery;
+				end
+			end
+			
+			S_attack_recovery:
+			begin
+				char_x <= char_x;
+				char_state <= state;
+				counter_control <= increment;
+				state <= S_attack_recovery;
+				if (count == 15)
+				begin
+					counter_control <= reset;
+					state<= S_idle;
+				end
+			end
+			
+			S_dir_attack_start:
+			begin
+				char_x <= char_x;
+				char_state <= state;
+				counter_control <= increment;
+				state <= S_dir_attack_start;
+				if (count == 3)
+				begin
+					counter_control <= reset;
+					state<= S_dir_attack_active;
+				end
+			end
+			
+			S_dir_attack_active:
+			begin
+				char_x <= char_x;
+				char_state <= state;
+				counter_control <= increment;
+				state <= S_dir_attack_active;
+				if (count == 2)
+				begin
+					counter_control <= reset;
+					state<= S_dir_attack_recovery;
+				end
+			end
+			
+			S_dir_attack_recovery:
+			begin
+				char_x <= char_x;
+				char_state <= state;
+				counter_control <= increment;
+				state <= S_dir_attack_recovery;
+				if (count == 14)
+				begin
+					counter_control <= reset;
+					state<= S_idle;
+				end
+			end
+		
+		endcase
+		
+	end //initialize end	
+end //always @(posedge clk) end
+
+
+//always @(*) //calculating outputs
+//begin	
+//	
+//	if (state == S_idle)
+//	begin
+//		char_x <= char_x;
+//		char_state <= state;
+//	end
+//	
+//	if (state == S_right)
+//	begin
+//		char_x <= char_x + 2'b11;
+//		char_state <= state;
+//	end
+//	
+//	if (state == S_left)
+//	begin
+//		char_x <= char_x - 2'b11;
+//		char_state <= state;
+//	end
+//	
+//	if (state == S_attack_start)
+//	begin
+//		char_x <= char_x;
+//		char_state <= state;
+//	end
+//	
+//	if (state == S_attack_active)
+//	begin
+//		char_x <= char_x;
+//		char_state <= state;
+//	end
+//	
+//	if (state == S_attack_recovery)
+//	begin
+//		char_x <= char_x;
+//		char_state <= state;
+//	end
+//	
+//	if (state == S_dir_attack_start)
+//	begin
+//		char_x <= char_x;
+//		char_state <= state;
+//	end
+//	
+//	if (state == S_dir_attack_active)
+//	begin
+//		char_x <= char_x;
+//		char_state <= state;
+//	end
+//	
+//	if (state == S_dir_attack_recovery)
+//	begin
+//		char_x <= char_x;
+//		char_state <= state;
+//	end
+//	
+//end
+
+
+
+
+endmodule

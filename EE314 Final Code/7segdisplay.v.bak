@@ -1,0 +1,18 @@
+module 7segdisplay
+(
+	input state,
+	input toggle,
+	output hex0
+	output hex1
+	output hex2
+	output hex3
+	output hex4
+	output hex5
+);
+
+always @(*)
+begin
+
+end
+
+endmodule
